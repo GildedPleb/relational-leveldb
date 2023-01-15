@@ -1,0 +1,32 @@
+{
+  "name": "leveldb-prisma-connnector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "node --loader ts-node/esm --experimental-specifier-resolution=node --no-warnings ./src/generator.ts",
+    "dev": "nodemon -w ./src/ --ext ts --exec \"npm run generate\"",
+    "example": "node --loader ts-node/esm --experimental-specifier-resolution=node --no-warnings example.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/internals": "^4.8.1",
+    "change-case": "^4.1.2",
+    "datastore-level": "^9.0.4",
+    "interface-datastore": "^7.0.3",
+    "uint8arrays": "^4.0.3",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/uuid": "^9.0.0",
+    "nodemon": "^2.0.20",
+    "prisma": "^4.8.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "type": "module"
+}

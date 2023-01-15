@@ -1,0 +1,46 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "leveldb-js"
+}
+
+model Recipe {
+  id           String       @id @default(uuid())
+  name         String
+  ingredients  Ingredient[]
+  author       Author       @relation(fields: [authorId], references: [name])
+  authorId     String       @unique
+  instructions String?
+  createdAt    DateTime     @default(now())
+
+  @@unique([authorId, name, instructions], name: "authorIdId")
+}
+
+model Ingredient {
+  id                String    @id @default(uuid())
+  name              String
+  comment           String    @default("keep it cold")
+  dateAddedToPantry DateTime
+  dateRemoved       DateTime? @unique
+  count             Int
+  quantity          Float
+  recipies          Recipe[]
+}
+
+model Author {
+  id            String      @id @default(uuid())
+  name          String      @unique
+  Recipes       Recipe[]
+  selfPublisher Publisher   @relation("self", fields: [publisherIdt], references: [id])
+  publisherIdt  String      @unique
+  publishers    Publisher[]
+}
+
+model Publisher {
+  id      String   @id
+  author  Author?  @relation("self")
+  authors Author[]
+}
